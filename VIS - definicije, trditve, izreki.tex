@@ -31,4 +31,130 @@ po predavanjih profesorja Jaka Smrekarja}
 \tableofcontents
 \pagebreak
 
+% #################################################################################################
+
+\section{SLUČAJNI VEKTORJI}
+\vspace{0.5cm}
+
+\begin{definicija}[Komulativna porazdelitvena funkcija]
+
+Slučajni vektor je taka funkcija/preslikava $\vec{X} = (X_1, \ldots, X_n): \Omega \rightarrow \mathbb{R}^n$, kjer je $\Omega$ verjetnostni prostor, za katero so množice
+\begin{align*}
+\{ X_1 \leq x_1, \ldots, X_n \leq x_n \} ~&=~ \{ X_1 \in (-\infty, x_1], \ldots, X_n \in (-\infty, x_n] \} \\
+&=~ \{ \vec{X} \in (-\infty, x_1] \times \ldots \times (-\infty, x_n] \} \\
+&=~ {\vec{X}}^{-1} \left( (-\infty, x_1] \times \ldots \times (-\infty, x_n] \right)
+\end{align*}
+dogodki za vse \textit{realne} $n$-terice $(x_1, \ldots, x_n) \in \mathbb{R}^n$. \\
+
+\noindent \textit{Komulativna porazdelitvena funkcija} slučajnega vektorja $\vec{X}$ je funkcija $F_X: \mathbb{R}^n \rightarrow [0, 1]$ s predpisom
+$$F_{\vec{X}}(x_1, \ldots, x_n) ~=~ \mathbb{P}(X_1 \leq x_1, \ldots, X_n \leq x_n).$$
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{trditev}[Lastnosti KPF]
+~
+\begin{enumerate}
+
+	\item[(1)] \begin{align*}
+		\lim_{x_i \rightarrow -\infty} F_{\vec{X}}(x_1, \ldots, x_n) ~&=~ 0 \\
+		\lim_{\substack{x_1 \rightarrow \infty \\ \cdots \\ x_n \rightarrow \infty}} F_{\vec{X}}(x_1, \ldots, x_n) ~&=~ 1 
+		\end{align*}
+	
+	\item[(2)] \textsc{Monotonost}: \\Če je $x_i \leq y_i$ za $\forall i \in \{ 1,\ldots, n \}$, je
+	$$F_{\vec{X}}(x_1, \ldots, x_n) ~=~ F_{\vec{X}}(\vec{x}) ~\leq~ F_{\vec{X}}(y).$$
+	To sledi iz monotonosti $\mathbb{P}$.
+	
+	\item[(3)] \textsc{Zveznost z desne}:
+	$$\lim_{\vec{y} \searrow \vec{x}} F_{\vec{X}(\vec{y})} ~=~ F_{\vec{X}}(\vec{x})$$
+	Tu $\vec{y} \searrow \vec{x}$ interpretiramo kot $\vec{y_i} \searrow \vec{x_i}$ za $\forall i$.
+	
+\end{enumerate}
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{opomba}
+
+Lastnosti (1), (2) in (3) karakterizirajo družino abstraktnih komulativnih porazdelitvenih funkcij v primeru slučajnih spremeljivk ($n=1$). V večrazsežnem prostoru to ne drži.
+
+\end{opomba}
+\vspace{0.5cm}
+
+\begin{izrek}
+
+Če je $F: \mathbb{R}^2 \rightarrow [0, 1]$ zadošča (1), (2), (3) in (4): 
+$$F(b, d) - F(a, d) - F(b, c) + F(a, c) ~\geq~ 0$$
+za vse četverice $a < b$ in $c < d$, je $F$ \textit{komulativna porazdelitvena funkcija} nekega slučajnega vektorja $(X, Y): \Omega \rightarrow \mathbb{R}^2$.
+
+\end{izrek}
+\vspace{0.5cm}
+
+\begin{definicija}['Zvezni' slučajni vektorj]
+
+Slučajni vektor $\vec{X}: \Omega \rightarrow \mathbb{R}^n$ ima (\textit{zvezno}) gostoto, če obstaja taka \textit{zvezna} funkcija $f_{\vec{X}}: \mathbb{R}^n \rightarrow [0, \infty)$, da zanjo velja
+$$\mathbb{P}(\vec{x} \in \mathcal{B}) ~=~ \int_{\mathcal{B}} f_{\vec{X}}(x_1, \ldots, x_n)~dx_1 \ldots dx_n,$$ 
+za vsako Borelovo množico $\mathcal{B} \subset \mathbb{R}^n$.
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{posplošitev}
+
+Pravimo, da ima vektor $\vec{X} = (X_1, \ldots, X_n)$ $n$-razsežno normalno porazdelitev s parametrom $\vec{\mu} \in \mathbb{R}$ in $\Sigma \in \mathbb{R}^{n \times n}$ (\textit{simetrična} in \textit{pozitivno definitna}), če ima gostoto:
+$$\mathlarger{f_{\vec{X}}(\vec{x}) ~=~ (2\pi)^{-\frac{n}{2}} (\det{\Sigma})^{-1} e^{-\frac{1}{2} \langle~ \Sigma^{-1}(\vec{x} - \vec{\mu})~, ~(\vec{x} - \vec{\mu}) ~\rangle}}$$ 
+
+\end{posplošitev}
+\vspace{0.5cm}
+
+\pagebreak
+
+% #################################################################################################
+
+\section{NEODVISNOST}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Komponente $X_1, \ldots, X_n$ slučajnega vektorja $\vec{X} = (X_1, \ldots, X_n)$ so \textit{neodvisne}, če velja
+$$F_{\vec{X}}(x_1, \ldots, x_n) ~=~ F_{X_1}(x_1) \cdot \ldots \cdot F_{X_n}(x_n)$$
+za vse $n$-terice $(x_1, \ldots, x_n) \in \mathbb{R}^n$.
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{opomba}
+
+Enakost lahko prepišemo v 
+$$\mathbb{P} \left( \vec{X} \in (-\infty, x_1] \times \ldots \times (-\infty, x_n] \right) ~=~ \mathbb{P} \left( X_1 \in (-\infty, x_1] \right) \cdot \ldots \cdot \mathbb{P} \left( X_n \in (-\infty, x_n] \right)$$
+
+\end{opomba}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Naj ima $(X, Y)$ \textit{'zvezno'} gostoto $f(X, Y)$ in naj bosta $f_X$ in $f_Y$ robni gostoti. Tedaj sta $X$ in $Y$ \textit{neodvisni} natanko takrat, ko 
+$$f_{(X, Y)}(x, y) ~=~ f_X(x) \cdot f_Y(y)$$
+za skoraj vse pare $x$ in $y$.
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{trditev}[Posledica prejšnje trditve]
+
+Naj ima $(X, Y)$ \textit{'zvezno'} gostoto $f_{(X, Y)}(x, y)$. Tedaj sta $X$ in $Y$ neodvisni natanko takrat, ko velja
+$$f_{(X, Y)}(x, y) ~=~ \Phi(x) \Psi(y)$$
+za skoraj vse $x$ in $y$, za neki \textit{nenegativni} integralski funkciji.
+
+\end{trditev}
+\vspace{0.5cm}
+
+\pagebreak
+
+% #################################################################################################
+
+\section{FUNKCIJE in TRANSFORMACIJE \\ vektorjev slučajnih spremenljivk}
+\vspace{0.5cm}
+
+% #################################################################################################
+
 \end{document}
