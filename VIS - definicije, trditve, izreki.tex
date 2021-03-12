@@ -4,6 +4,11 @@
 \usepackage{relsize}
 \usepackage{amsthm}
 \usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bbm}
+
+\newcommand{\p}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\1}{\mathbbm{1}}
 
 \theoremstyle{definition}
 \newtheorem{definicija}{Definicija}[section]
@@ -152,8 +157,95 @@ za skoraj vse $x$ in $y$, za neki \textit{nenegativni} integralski funkciji.
 
 % #################################################################################################
 
-\section{FUNKCIJE in TRANSFORMACIJE \\ vektorjev slučajnih spremenljivk}
+\section{FUNKCIJE in TRANSFORMACIJE \\ slučajnih spremenljivk in vektorjev}
 \vspace{0.5cm}
+
+% *************************************************************************************************
+
+\subsection{Slučajne spremenljivke}
+\vspace{0.5cm}
+
+\begin{trditev}[Diskretni primer]
+
+Če je $X$ \textit{diskretna slučajna spremenljivka} z vrednostmi $\{ x_i \mid i \in I \}$ in je $g$ funkcija, ki preslika množico $\{ x_i \mid i \in I \}$ na množico $\{ y_j \mid j \in J \}$, je $g \circ X = g(X)$ \textit{diskretna slučajna spremenljivka} z verjetnostno funkcijo
+$$\p(g(X) = y_j) ~=~ \sum_{i:~g(x:i)=y_j} \p(X = x_i)$$
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{trditev}[Zvezni primer]
+
+Naj ima slučajna spremenljivka $X$ \textit{'zvezno'} gostoto $f_X$, ki je različna od $0$ natanko na intervalu $(a, b)$, kjer $-\infty \leq a \leq b \leq \infty$. 
+
+Naj bo $g: (a, b) \rightarrow (c, d)$ \textit{zvezna bijekcija}. Zanima nas funkcija $g(X)$ slučajne spremenljivke $X$.
+
+Velja tudi
+$$\p(X \in (a, b)) ~=~ \int_a^b f_X (x)~dx ~=~ \int_{\R} f_X (x)~dx ~=~ 1.$$
+
+Velja $\{ g(X) \leq z \} = \{ X \leq g^{-1}(z) \}$. Ker je $X$ slučajna spremenljivka, so  $\{ X \leq g^{-1}(z) \}$ dogodki za $z \in (c, d).$ Sledi, da je $g(X)$ slučajna spremenljivka in velja:
+$$F_{g(X)}(z) ~=~ \p(g(X) \leq z) ~=~ \begin{cases}
+1~~~~~~~~~~~~~~; ~~~z \geq d \\
+F_X(g^{-1}(z))~; ~~~z \in (c, d) \\
+0~~~~~~~~~~~~~~; ~~~z \leq c
+\end{cases}$$
+Če je $g$ \textit{odvedljiva}, sledi:
+$$f_{g(X)}(z) ~=~ \frac{d}{dz} F_{g(X)}(z)  ~=~ \begin{cases}
+\frac{f_X(g^{-1}(z))}{g'(g^{-1}(z))}~; ~~~z \in (c, d) \\
+0~~~~~~~~~~~~~; ~\text{sicer}
+\end{cases}$$
+Za splošno \textit{odvedljivo bijekcijo} $g: (a, b) \rightarrow (c, d)$ velja t.i. \textit{transformacijska formula}:
+$$f_{g(X)}(z) ~=~ \frac{f_X(g^{-1}(z))}{|g'(g^{-1}(z))|}, ~~~\text{za}~ z \in (c, d).$$
+ 
+\end{trditev}
+\vspace{0.5cm}
+
+% *************************************************************************************************
+
+\subsection{Slučajni vektorji}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Naj bo $\vec{X}: \Omega \rightarrow \R^n$ slučajni vektor in naj bo $h: \R^n \rightarrow \R$ \textit{zvezna} funkcija. Tedaj je $h(\vec{X}) = h(X_1, \ldots, X_n)$ \textit{slučajna spremenljivka}.
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Naj bo $\vec{X}: \Omega \rightarrow \R^n$ slučajni vektor z gostoto $f_{\vec{X}}$. Dalje naj bo $g: \R^n \rightarrow \R^n$ (ali $g: D \rightarrow E$ za primerni množici $D, E \subset \R^n$, kjer $\p(\vec{X} \in D) = 1$) \textit{zvezno diferenciabilna bijekcija}. Tedaj ima slučajni vektor $g(\vec{X})$ gostoto
+$$f_{g(\vec{X})}(\vec{z}) ~=~ f_{\vec{X}} (g^{-1}(\vec{z})) \cdot |\det{Jg^{-1}(\vec{z})|}$$
+v točkah $\vec{z} \in \R^n$ (oz. $\vec{z} \in E$).
+
+Za dvorazsežne vektorje, kjer je $\vec{z} = (u, v)$ in $(U, V) = g(X, Y)$ ter posledično $(X, Y) = g^{-1}(U, V)$ se transformacijska formula glasi
+$$f_{(U, V)}(u, v) ~=~ f_{(X ,Y)}(g^{-1}(u, v)) \cdot |\det{Jg^{-1}(u, v)}|$$
+oziroma
+$$f_{(U, V)}(u, v) ~=~ f_{(X, Y)}(x(u, v), y(u, v)) \cdot \left| \begin{vmatrix}
+\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
+\frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}
+\end{vmatrix} \right|.$$
+Upoštevaje $g \circ g^{-1} = \text{id}$ in posledično
+$$Jg(g^{-1}(u, v)) \cdot Jg^{-1}(u, v) ~=~ I$$
+zgornje prepišemo v
+$$f_{(U, V)}(u, v) ~=~ \frac{f_{(X, Y))}(g^{-1}(u, v)}{|\det{Jg(g^{-1}(u, v))}|} ~=~ \frac{f_{(X, Y)}(x(u, v), y(u, v))}{\left| \begin{vmatrix}
+\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
+\frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}
+\end{vmatrix} \Big|_{(x(u, v),~y(u, v))} \right|}.$$ 
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Naj za $\vec{X}: \Omega \rightarrow \R^n$ velja $\vec{X} \sim N(\vec{\mu}, \Sigma)$ in naj bo $A: \R^n \rightarrow \R^n$ \textit{obrnljiva} matrika. Dalje naj bo $\vec{\nu} \in \R^n$. Tedaj
+$$A \vec{x} + \vec{\nu} \sim N(A \vec{\mu} + \vec{\nu}, A \Sigma A^T).$$
+
+\end{trditev}
+\vspace{0.5cm}
+
+% *************************************************************************************************
+
+\pagebreak
 
 % #################################################################################################
 
