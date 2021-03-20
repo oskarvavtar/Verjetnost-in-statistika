@@ -7,8 +7,10 @@
 \usepackage{bbm}
 
 \newcommand{\p}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\1}{\mathbbm{1}}
+\newcommand{\N}{\mathcal{N}}
 
 \theoremstyle{definition}
 \newtheorem{definicija}{Definicija}[section]
@@ -21,6 +23,7 @@
 
 \newtheorem*{posledica}{Posledica}
 \newtheorem*{opomba}{Opomba}
+\newtheorem*{komentar}{Komentar}
 \newtheorem{lema}{Lema}
 \newtheorem*{dokaz}{Dokaz}
 \newtheorem*{posplošitev}{Posplošitev}
@@ -97,7 +100,7 @@ za vse četverice $a < b$ in $c < d$, je $F$ \textit{komulativna porazdelitvena 
 \begin{definicija}['Zvezni' slučajni vektorj]
 
 Slučajni vektor $\vec{X}: \Omega \rightarrow \mathbb{R}^n$ ima (\textit{zvezno}) gostoto, če obstaja taka \textit{zvezna} funkcija $f_{\vec{X}}: \mathbb{R}^n \rightarrow [0, \infty)$, da zanjo velja
-$$\mathbb{P}(\vec{x} \in \mathcal{B}) ~=~ \int_{\mathcal{B}} f_{\vec{X}}(x_1, \ldots, x_n)~dx_1 \ldots dx_n,$$ 
+$$\mathbb{P}(\vec{x} \in \mathcal{B}) ~=~ \int_{\mathcal{B}} f_{\vec{X}}(x_1, \ldots, x_n)\,dx_1 \ldots dx_n,$$ 
 za vsako Borelovo množico $\mathcal{B} \subset \mathbb{R}^n$.
 
 \end{definicija}
@@ -157,7 +160,7 @@ za skoraj vse $x$ in $y$, za neki \textit{nenegativni} integralski funkciji.
 
 % #################################################################################################
 
-\section{FUNKCIJE in TRANSFORMACIJE \\ slučajnih spremenljivk in vektorjev}
+\section{FUNKCIJE in TRANSFORMACIJE \\slučajnih spremenljivk in vektorjev}
 \vspace{0.5cm}
 
 % *************************************************************************************************
@@ -180,7 +183,7 @@ Naj ima slučajna spremenljivka $X$ \textit{'zvezno'} gostoto $f_X$, ki je razli
 Naj bo $g: (a, b) \rightarrow (c, d)$ \textit{zvezna bijekcija}. Zanima nas funkcija $g(X)$ slučajne spremenljivke $X$.
 
 Velja tudi
-$$\p(X \in (a, b)) ~=~ \int_a^b f_X (x)~dx ~=~ \int_{\R} f_X (x)~dx ~=~ 1.$$
+$$\p(X \in (a, b)) ~=~ \int_a^b f_X (x)\,dx ~=~ \int_{\R} f_X (x)\,dx ~=~ 1.$$
 
 Velja $\{ g(X) \leq z \} = \{ X \leq g^{-1}(z) \}$. Ker je $X$ slučajna spremenljivka, so  $\{ X \leq g^{-1}(z) \}$ dogodki za $z \in (c, d).$ Sledi, da je $g(X)$ slučajna spremenljivka in velja:
 $$F_{g(X)}(z) ~=~ \p(g(X) \leq z) ~=~ \begin{cases}
@@ -241,6 +244,224 @@ Naj za $\vec{X}: \Omega \rightarrow \R^n$ velja $\vec{X} \sim N(\vec{\mu}, \Sigm
 $$A \vec{x} + \vec{\nu} \sim N(A \vec{\mu} + \vec{\nu}, A \Sigma A^T).$$
 
 \end{trditev}
+\vspace{0.5cm}
+
+% *************************************************************************************************
+
+\pagebreak
+
+% #################################################################################################
+
+\section{PRIČAKOVANA VREDNOST \\zveznih slučajnih spremenljivk in vektorjev}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Naj bo $X$ slučajna spremenljivka z 'zvezno' gostoto $f_X: \R \rightarrow [0, \infty)$. \textit{Pričakovana vrednost} slučajne spremenljivke $X$ je
+$$\E(X) ~=~ \int_{-\infty}^{\infty} x \cdot f_X\,dx,$$
+če integral absolutno konvergira. \\
+
+Za slučajni vektor $\vec{X} = (X_1, \ldots, X_n)$ definiramo pričakovano vrednost po komponentah
+$$\E(\vec{X}) ~=~ (\E(X_1), \ldots, \E(X_2)) \in \R^n.$$
+Podobno definiramo tudi pričakovano vrednost slučajnih matrik.
+
+\end{definicija}
+\vspace{0.5cm}
+
+% *************************************************************************************************
+
+\subsection{Pričakovana vrednost funkcij slučajnih spremenljivk in vektorjev}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Naj bo $g: \R \rightarrow \R$ (ali $g:(a, b) \rightarrow (c, d)$) zvezna funkcija. Tedaj je
+$$\E(g(X)) ~=~ \int_{-\infty}^{\infty} g(x) f_X(x)\,dx,$$
+če obstaja.
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{posledica}
+
+Za $p \neq 0$ velja:
+$$\E(|x|^p) ~=~ \int_0^{\infty} |z|^p (f_X(z) + f_X(-z))\,dz ~=~ \ldots ~=~ \int_{-\infty}^{\infty} |x|^p f_X(x)\,dx.$$
+
+\end{posledica}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Naj bo $h: \R^2 \rightarrow \R$ (oziroma $h: D \rightarrow \R$ v primeru, da $\p((X, Y) \in D) = 1)$ \textit{zvezna} funkcija in $(X, Y)$ slučajni vektor z gostoto $f_{(X, Y)}$. Tedaj velja
+$$\E(h(X, Y)) ~=~ \int_{R^2 ~(ali~D)} h(x, y) f_{(X, Y)}(x, y)\,dx\,dy,$$
+če obstaja.
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{posledica}
+
+$$\E(XY) ~=~ \int_{\R} x \cdot y \cdot f_{(X, Y)}(x, y)\,dx\,dy,$$
+če integral absolutno konvergira. 
+
+\end{posledica}
+\vspace{0.5cm}
+
+\begin{opomba}
+
+Če sta $X$ in $Y$ \textit{neodvisni} slučajni spremenljivki, za kateri obstajata $\E(X)$ in $\E(Y)$, potem obstaja $\E(XY)$ in je
+$$\E(XY) ~=~ \E(X) \cdot \E(Y).$$
+
+\end{opomba}
+\vspace{0.5cm}
+
+\begin{posledica}[Aditivnosti pričakovane vrednosti]
+
+Če je $X \leq Y$ (z verjetnostjo $1$), velja
+$$\E(X) ~\leq~ \E(Y)$$
+če $\E(|Y|) < \infty)$.
+
+\end{posledica}
+\vspace{0.5cm}
+
+\begin{izrek}
+
+Naj za slučajni spremenljivki $X$ in $Y$ velja $\E(X^2) < \infty$ in $\E(Y^2) < \infty$. Tedaj obstaja $\E(XY)$ in velja
+$$\E(|XY|) ~\leq~ \sqrt{\E(X^2)\E(Y^2)}.$$
+$$\text{Enakost nastopi} ~\iff~ \frac{Y}{\sqrt{\E(Y^2)}} = \pm \frac{X}{\sqrt{\E(X^2)}}~\text{skoraj gotovo.}$$
+
+\end{izrek}
+\vspace{0.5cm}
+
+\begin{posledica}
+
+Če je $\E(X^2) < \infty$, je $\E(|X|) < \infty$ in
+$$\E(|X|) ~\leq~ \sqrt{\E(X^2)}.$$
+
+\end{posledica}
+\vspace{0.5cm}
+
+% *************************************************************************************************
+
+\subsection{Disperzija, kovarianca in variančno-kovariančno matrika}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+\textit{Disperzija (razpršenost, varianca)} slučajne spremenljivke $X$ je 
+$$\E((X - \E(X))^2),$$
+če ta pričakovana vrednost obstaja. Ta obstaja, če obstaja $\E(X^2)$ in tedaj velja
+$$Var(X) ~=~ \E(X^2) - \E(X)^2.$$
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+\textit{Standardni odklon} slučajne spremenljivke $X$ definiramo kot
+$$\sigma(X) ~=~ \sigma_X ~=~ \sqrt{Var(X)}.$$
+Pripomnimo, da ima $\sigma(X)$ iste enote kot $X$ in je zato $\sigma(X)$ 'količina' ki je neposredno primerljiva z $X$.
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{trditev}[Lastnosti variance]
+
+Naj za slučajno spremenljivko $X$ obstaja $\E(X^2)$ (torej obstaja tudi $Var(X)$):
+\begin{itemize}
+	\item $Var(X) \geq 0$ in $Var(X) = 0$ $\iff$ $X \equiv \E(X)$ skoraj gotovo,
+	
+	\item $Var(X)$ je minimum funkcije $a \mapsto \E((X-a)^2)$,
+	
+	\item $Var(aX+b) = a^2 Var(X)$,
+	
+	\item $Var(X+Y) = Var(X) + Var(Y)$, če sta $X$ in $Y$ \textit{neodvisni}.
+\end{itemize}
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{komentar}
+
+Vemo, da je $\sigma^2$ v $\N(\mu, \sigma^2)$ disperzija.
+
+\end{komentar}
+\vspace{0.5cm}
+
+\begin{opomba}
+
+Za \textit{zvezno} slučajno spremenljivko $X$ z gostoto $f_X$ je 
+$$Var(X) ~=~ \int_{-\infty}^{\infty}(x - \E(X))^2 f_X(x)\,dx.$$
+
+\end{opomba}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+\textit{Kovarianca} slučajnih spremenljivk $X$ in $Y$ je
+$$Cov(X, Y) ~=~ \E((X - \E(X))(Y - \E(Y))),$$
+če obstaja. $Cov(X,Y)$ obstaja, če obstajajo $\E(X)$, $\E(Y)$, $\E(XY)$. Če je tako, velja
+$$Cov(X, Y) ~=~ \E(XY) - \E(X)\E(Y).$$
+Če sta $X$ in $Y$ neodvisni in imata pričakovano vrednost, potem 
+$$Cov(X, Y) ~=~ 0.$$  
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{trditev}[Lastnosti kovariance]
+~
+\begin{itemize}
+	\item $Cov(X, Y)$ obstaja, če obstajata $Var(X)$ in $Var(Y)$ ter velja \textit{Cauchy-Schwarzova neenakost}
+	$$|Cov(X, Y)| ~\leq~ \sqrt{Var(X)Var(Y)} ~=~ \sigma(X)\sigma(Y),$$
+	enakost nastopi $\iff$ $\frac{Y-\E(Y)}{\sigma(Y)} = \pm \frac{X-\E(X)}{\sigma(X)}$ skoraj gotovo. V tem primeru pravimo, da sta $X$ in $Y$ skoraj gotovo linearno povezani.
+	
+	\item $Cov(X, X) = Var(X)$
+	
+	\item Kovarianca je \textit{simetrična bilinearna} funkcija. Dovolj je preveriti bilinearnost v eni spremenljivki.
+	
+	\item Če ima $(X, Y)$ \textit{zvezno} gostoto $f_X$, potem je
+	$$Cov(X, Y) ~=~ \iint_{\R^2} (x-\E(X))(y-\E(Y)) f_{(X, Y)}(x, y)\,dx\,dy.$$
+	
+	\item Če imata $X$ in $Y$ disperzijo, jo ima tudi $X+Y$ in velja
+	$$Var(X+Y) ~=~ Var(X) + 2Cov(X, Y) + Var(Y).$$
+	Posplošitev na disperzijo vrste $X_1 + \ldots + X_n$:
+	$$Var(X_1 + \ldots + X_n) ~=~ \sum_{i=1}^n Var(X_i) ~+~ 2\sum_{1 \leq i < j \leq n} Cov(X_i, X_j)$$
+\end{itemize}
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+\textit{Variančno-kovariančna matrika} slučajnega vektorja $\vec{X} = (X_1, \ldots, X_n)$ je matrika $Var(\vec{X}) \in \R^{n \times m}$ z elementi
+$$[Var(\vec{X})]_{ij} ~=~ Cov(X_i, X_j).$$
+To je \textit{simetrična} matrika z diagonalnimi elementi $Var(X_1), \ldots, Var(X_n)$.
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+\textit{Pearsonov korelacijski koeficient} slučajnih spremenljivk $X$ in $Y$ z disperzijo je
+$$\rho(X, Y) ~=~ \frac{Cov(X, Y)}{\sigma(X)\sigma(Y)} \in [-1, 1].$$
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Slučajni spremenljivki $X$ in $Y$ sta \textit{nekorelirani} natanko takrat, ko
+$$\E(XY) ~=~ \E(X)\E(Y).$$
+Vidimo:
+\begin{itemize}
+	\item Če sta $X$ in $Y$ \textit{neodvisni} slučajni spremenljivki s pričakovano vrednostjo, sta \textit{nekorelirani}.
+	
+	\item Obrat v splošnem ne drži, drži pa v primeru dvorazsežne normalno porazdeljenega slučajnega vektorja.
+	
+	\item Če imata $X$ in $Y$ disperzijo, sta nekorelirani $\iff$ $\rho(X, Y) = 0$.
+\end{itemize}
+
+\end{definicija}
 \vspace{0.5cm}
 
 % *************************************************************************************************
