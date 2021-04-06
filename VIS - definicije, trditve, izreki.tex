@@ -10,7 +10,10 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\1}{\mathbbm{1}}
-\newcommand{\N}{\mathcal{N}}
+\newcommand{\n}{\mathcal{N}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathcal{C}}
 
 \theoremstyle{definition}
 \newtheorem{definicija}{Definicija}[section]
@@ -383,7 +386,7 @@ Naj za slučajno spremenljivko $X$ obstaja $\E(X^2)$ (torej obstaja tudi $Var(X)
 
 \begin{komentar}
 
-Vemo, da je $\sigma^2$ v $\N(\mu, \sigma^2)$ disperzija.
+Vemo, da je $\sigma^2$ v $\n(\mu, \sigma^2)$ disperzija.
 
 \end{komentar}
 \vspace{0.5cm}
@@ -465,6 +468,343 @@ Vidimo:
 \vspace{0.5cm}
 
 % *************************************************************************************************
+
+\pagebreak
+
+% #################################################################################################
+
+\section{POGOJNE PORAZDELITVE in \\POGOJNA PRIČAKOVANA VREDNOST}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Naj bo $\B \subseteq \R$ Borelova množica. Pogojna verjetnost, da $Y$ zavzame vrednost v $\B$ pri pogoju $X=x$ je
+\begin{align*}
+\p(Y \in \B \mid X=x) ~&=~ \lim_{h \searrow 0} \p(Y \in \B \mid X \in (x-h, x+h)) ~=~ \\
+~&=~ \lim_{h \searrow 0} \frac{\p(Y \in \B,~ X \in (x-h, x+h))}{\p(X \in (x-h, x+h))},
+\end{align*}
+če ta limita obstaja.
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Naj ima $(X, Y)$ \textit{"zvezno"} gostoto $f_{(X, Y)}$ in naj bo $f_X(x)$ \textit{zvezna} v $x$. Tedaj je
+$$\p(Y \in \B \mid X=x) ~=~ \int_\B \frac{f_{(X, Y)}(x, y)}{f_X(x)}\,dy.$$
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{opomba}
+
+Če sta $X, Y$ \textit{neodvisni}, je 
+$$f_{(Y \mid X)}(y \mid x) ~=~ f_Y(y).$$
+Brez privzetka \textit{zveznosti} je 
+$$\p(Y \in \B \mid X=x) ~=~ \p(Y = \B).$$
+
+\end{opomba}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Velja tako imenovani \textit{zakon popolne verjetnosti}:
+$$\p(Y \in \B) ~=~ \int_{-\infty}^\infty \p(Y \in \B \mid X=x)f_X(x)\,dx.$$
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+\textit{Pogojna pričakovana vrednost} $Y$, pogojna na $X=x$, je pričakovana vrednost pogojne porazdelitve $(Y \mid X=x)$. V primeru, ko ima $(X, Y)$ \textit{"zvezno"} gostoto, to pomeni
+$$\E(Y \mid X=x) ~=~ \int_{-\infty}^\infty y \cdot f_{(Y \mid X)}(y \mid x)\,dy.$$
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Zakon \textit{popolne pričakovane vrednosti}:
+$$\E(Y) ~=~ \int_{-\infty}^\infty \E(Y \mid X=x) f_X(x)\,dx.$$
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{komentar}
+
+Velja tudi:
+\begin{align*}
+\E(g(Y) \mid X=x) ~&=~ \int_{-\infty}^\infty g(y) f_{(Y \mid X)}(y \mid x)\,dy \\
+\text{in}~~~~~~~~\E(g(Y)) ~&=~ \int_{-\infty}^\infty \E(g(y) \mid X=x) f_X(x)\,dx.
+\end{align*}
+
+\end{komentar}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Pogojna pričakovana vrednost $\E(Y \mid X)$ je slučajna spremenljivka, definirana\footnote{Na istem verjetnostnem prostoru.} kot:
+$$\E(Y \mid X)(\omega) ~=~ \E(Y \mid X = X(\omega)).$$
+Če pišemo $g(x) = \E(Y \mid X=x)$, je $\E(Y \mid X) = g(X)$ \textit{transformacija} slučajne spremenljivke $X$. \\
+
+Sledi:
+\begin{align*}
+\E(\E(Y \mid X)) ~&=~ \E(g(X)) ~=~ \int_{-\infty}^\infty g(y) f_X(x)\,dx ~=~ \\
+~&=~ \int_{-\infty}^\infty \E(Y \mid X=x) f_X(x)\,dx ~=~ \E(Y).
+\end{align*}
+Pravimo, da je $\E(Y \mid X)$ najboljši približek za $Y$, če poznamo $X$.
+
+\end{definicija}
+\vspace{0.5cm}
+
+\pagebreak
+
+% #################################################################################################
+
+\section{MOMENTI in \\MOMENTNO-RODOVNA FUNKCIJA}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Naj bo $X$ slučajna spremenljivka in naj bosta $k \in \N$ in $a \in \R$. Moment slučajne spremenljivke $X$ glede na $a$ je
+$$m_k(a) ~=~ \E((X-a)^k),$$
+če obstaja, torej če $\E(|X-a|^k) < \infty$. \\
+
+V zveznem primeru je
+$$m_k(a) ~=~ \int_{-\infty}^\infty (x-a)^k f(x)\,dx,$$
+če integral absolutno konvergira. \\
+
+Pravimo:
+\begin{itemize}
+	\item $m_k(0)$ \ldots $k$-ti moment
+	\item $m_k(\E(k))$ \ldots $k$-ti \textit{centralni} moment
+\end{itemize}
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Če obstaja $m_n(a)$, potem obstajajo $m_k(a)$ za $k < n$.
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Če obstaja $m_n(a)$ za neki $a \in \R$, obstaja $m_n(b)$ za $b \in \R$.
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{posledica}
+
+Če $m_n$ obstaja, je 
+$$m_n(b) ~=~ \sum_{k=0}^\infty \binom{n}{k} (a-b)^{n-k} m_n(a).$$
+
+\end{posledica}
+\vspace{0.5cm}
+
+\pagebreak
+\begin{izrek}
+
+Naj obstajajo vsi momenti $m_k = \E(X^k)$ in naj vrsta
+$$\sum_{k=0}^\infty \frac{1}{k!} t^k \E(X^k)$$
+absolutno konvergira za neki $t>0$. Potem je porazdelitev slučajne spremenljivke $X$ enolično določena z momenti. Če ima $Y$ enako lastnost in velja
+$$\E(X^k) ~=~ \E(Y^k) ~~~\forall k,$$
+sta $X$ in $Y$ \textit{enako porazdeljeni}.
+
+\end{izrek}
+\vspace{0.5cm}
+
+\begin{komentar}
+
+To pomeni, da je komulativna porazdelitvena funkcija $F_X: \R \rightarrow [0, 1]$ določena s \textit{števnim} naborom števil.
+
+\end{komentar}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+\textit{Momentno-rodovna funkcija} slučajne spremenljivke $X$ je funkcija
+$$M_X(t) ~=~ \E(e^{tX}),$$
+ki je definirana za tista realna števila $t \in \R$, za katera pričakovana vrednost obstaja. Vedno je
+$$M_X(0) ~=~ \E(1) ~=~ 1.$$
+Za $t \neq 0$ je $y(x) = e^{tx}$ \textit{zvezno odvedljiva} bijekcija $\R \rightarrow (0, \infty)$ in za slučajno spremenljivko $X$ z gostoto $f_X$ velja
+$$M_X(t) ~=~ \sum_{k=0}^\infty \frac{1}{k!} t^k \E(X^k).$$
+To pomeni, da je $M_X$ \textit{analitična}; porazdelitev slučajne spremenljivke $X$ je \textit{enolično} določena z momenti.
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+$$M_{aX+b}(t) ~=~ e^{tb} M_X(at)$$
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{posledica}
+
+$$M_{\n(\mu, \sigma^2)}(t) ~=~ M_{\sigma \cdot \n(0, 1) + \mu}(t) ~=~ e^{t\mu} \cdot e^{\frac{(\sigma t)^2}{2}}$$
+
+\end{posledica}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Če sta slučajni spremenljivki $X$ in $Y$ \textit{neodvisni}, velja
+$$M_{X+Y}(t) ~=~ M_X(t) \cdot M_Y(t).$$
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{lema}
+
+Če sta slučajni spremenljivki $X$ in $Y$ \textit{neodvisni} in $f, g: \R \rightarrow \R$ (ali $f: (a, b) \rightarrow \R$, $g: (c, d) \rightarrow \R$) \textit{zvezni} funkciji, potem sta $f(X)$ in $g(Y)$ neodvisni:
+\begin{align*}
+\p(f(X) \in \B, ~g(Y) \in \C) ~&=~ \p(X \in f^{-1}(\B), ~Y \in g^{-1}(\C)) ~=~ \\
+~&=~ \p(X \in f^{-1}(\B)) \cdot \p(Y \in g^{-1}(\C)),
+\end{align*}
+kjer smo pri zadnjem enačaju upoštevali \textit{neodvisnost}.
+
+\end{lema}
+\vspace{0.5cm}
+
+\pagebreak
+
+% #################################################################################################
+
+\section{LIMITNI IZREKI}
+\vspace{0.5cm}
+
+\begin{izrek}[Krepki zakon velikih števil]
+
+Verjetnost tistih vzorcev \\$s = (\omega_1, \omega_2, \omega_3, \ldots) \in S$, za katere je
+$$\lim_{n \rightarrow \infty} \frac{X(\omega_1) + \ldots + X(\omega_n)}{n} ~=~ \lim_{n \rightarrow \infty} \frac{X_1(s) + \ldots + X_n(s)}{n} ~=~ \E(x),$$
+je enaka $1$.
+
+\end{izrek}
+\vspace{0.5cm}
+
+\begin{trditev}[Markova neenakost]
+
+Naj bo $X$ slučajna spremenljivka s pričakovano vrednostjo in $a>0$. Tedaj je
+$$\p(|X| > a) ~\leq~ \frac{1}{|a|} \E(|X|).$$
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{posledica}[Čebiševa neenakost]
+
+Naj bo $\E(X^2) < \infty$ in bo $\varepsilon > 0$. Tedaj je
+$$\p(|X - \E(X)| > \varepsilon) ~=~ \frac{Var(X)}{\varepsilon^2}.$$
+
+\end{posledica}
+\vspace{0.5cm}
+
+\begin{izrek}[Šibki zakon velikih števil Markova]
+
+Naj bodo $X_1, X_2, \ldots$ \textit{neodvisne} in \textit{enako porazdeljene} sličajne spremenljivka z varianco $\sigma^2 < \infty$ in pričakovano vrednostjo $\mu$. Tedaj $\forall \varepsilon > 0$ velja
+$$\lim_{n \rightarrow \infty} \p \left( \left| \frac{X_1 + \ldots + X_n}{n} - \mu \right| > \varepsilon \right) ~=~ 0.$$
+
+\end{izrek}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Naj bodo $Y, Y_1, Y_2, Y_3, \ldots$ slučajne spremenljivke, definirane na skupnem verjetnostnem prostoru. Pravimo, da zaporedje $\{Y_n\}_n$ \textit{verjetnostno konvergira} k $Y$, pišemo $Y_n \xrightarrow[n \rightarrow \infty]{p} Y$, če $\forall \varepsilon > 0$ velja
+$$\lim_{n \rightarrow \infty} \p(|Y_n - Y| > \varepsilon) ~=~ 0.$$
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{komentar}
+
+Če so $X_1, X_2, \ldots$ \textit{neodvisne enako porazdeljene} slučajne spremenljivke s pričakovano vrednostjo $\mu$ in disperzijo $\sigma^2$, potem
+$$\overline{X} ~=~ \frac{1}{n} \sum_{i=1}^n X_i ~\xrightarrow[n \rightarrow \infty]{p}~ \mu.$$
+$\forall \varepsilon > 0:$
+$$\lim_{n \rightarrow \infty} \p(|\overline{X} - \mu| > \varepsilon) ~=~ 0.$$
+
+\end{komentar}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Zaporedje $\{Y_n\}_n$ konvergira \textit{skoraj gotovo} k $Y$, $Y_n \xrightarrow[n \rightarrow \infty]{s.g.} Y$, če je
+$$\p(\lim_{n \rightarrow} Y_n = Y) ~=~ \p(\{ s \mid \exists \lim_{n \rightarrow \infty} Y_n(s) = Y(s) \}) ~=~ 1.$$ 
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{izrek}[Krepki zakon velikih števil Kolmogorova]
+
+Naj bodo $X_1, X_2, \ldots$ \textit{neodvisne} in  \textit{enako porazdeljene} slučajne spremenljivke s pričakovano vrednostjo $\mu$. Tedaj velja
+$$\overline{X} ~=~ \frac{1}{n} \sum_{i=1}^n X_i ~\xrightarrow[n \rightarrow \infty]{s.g.}~ \mu.$$
+
+\end{izrek}
+\vspace{0.5cm}
+
+\begin{komentar}
+\begin{itemize}
+	\item obstoj variance ni potreben
+	\item za $X: \Omega \rightarrow \R$ smo konstruirali $X_i: \Omega^{\N} \rightarrow \R$
+\end{itemize}
+\end{komentar}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Iz \textit{skoraj gotove} konvergence sledi konvergenca v \textit{verjetnosti}.
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{trditev}
+
+Naj bo $g: \R \rightarrow \R$ \textit{zvezna} funkcija:
+\begin{enumerate}
+
+	\item[(1)] Če velja $Y_n \xrightarrow[n \rightarrow \infty]{s.g.} Y_n$, potem $g(Y_n) \xrightarrow[n \rightarrow \infty]{s.g.} g(Y)$.
+	
+	\item[(2)] Če velja $Y_n \xrightarrow[n \rightarrow \infty]{p} Y_n$, potem $g(Y_n) \xrightarrow[n \rightarrow \infty]{p} g(Y)$.
+
+\end{enumerate}
+
+\end{trditev}
+\vspace{0.5cm}
+
+\begin{izrek}[Centralni limitni izrek]
+
+Naj bo $X_1, X_2, \ldots$ zaporedje \textit{neodvisnih} in \textit{enako porazdeljenih} slučajnih spremenljivk s pričakovano vrednostjo $\mu$ in varianco $\sigma^2 < \infty$. Tedaj $\forall x \in \R$:
+$$\lim_{n \rightarrow \infty} \p \left( \frac{\frac{X_1 + \ldots + X_n}{n} - \mu}{\frac{\sigma}{\sqrt{n}}} \leq x \right) ~=~ \Phi(x) ~=~ \p(\n(0, 1) \leq x).$$
+
+\end{izrek}
+\vspace{0.5cm}
+
+\begin{komentar}
+
+$\frac{\frac{X_1 + \ldots + X_n}{n} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{\overline{X} - \mu}{\frac{\sigma}{\sqrt{n}}}$ je \textit{standardizacija} od $\overline{X}$. Izjava \textit{centralnega limitnega izreka} pravi, da \textit{komulativne porazdelitvene funkcije} standardiziranih vzorčnih povprečij po točkah konvergirajo k komulativni porazdelitveni funkciji $\Phi$. Za realni števili $a<b$ sledi
+$$\lim_{n \rightarrow \infty} \p \left( \frac{\overline{X} - \mu}{\frac{\sigma}{\sqrt{n}}} \in (a, b] \right) ~=~ \p \left( \overline{X} \in (\underbrace{\mu + a \frac{\sigma}{\sqrt{n}}}_{c}, \underbrace{\mu + b \frac{\sigma}{\sqrt{n}}}_{d}] \right).$$
+Torej:
+$$\p(\overline{X} \in (c, d]) ~\approx~ \Phi \left( \frac{d - \mu}{\frac{\sigma}{\sqrt{n}}} \right) ~-~ \Phi \left( \frac{c - \mu}{\frac{\sigma}{\sqrt{n}}} \right) ~=~ F_{\n(\mu, ~\frac{\sigma^2}{n})}(d) ~-~ F_{\n(\mu, ~\frac{\sigma^2}{n})}(c)$$
+oziroma
+$$\p(\overline{X} \in (c, d]) ~\approx~ \p \left(\n \left( \mu, \frac{\sigma^2}{n} \right) \in (c, d] \right) ~~~\text{za velike}~n.$$
+Rečemo tudi
+$$\overline{X} ~\dot{\sim}~ \n \left( \mu, \frac{\sigma^2}{n} \right).$$
+
+\end{komentar}
+\vspace{0.5cm}
+
+\begin{izrek}[Izrek o zveznosti]
+
+Če za slučajne spremenljivke $Y_1, Y_2, \ldots$, ki imajo momentno-rodovne funkcije na nekem intervalu $(-\delta, \delta)$, $\delta>0$, velja
+$$\lim_{n \rightarrow \infty} M_{Y_n}(t) ~=~ e^{\frac{t^2}{2}} ~=~ M_{\n(0, 1)}(t) ~~~\forall t \in (-\delta, \delta),$$
+potem $\forall x \in \R$ velja
+$$\lim_{n \rightarrow \infty} \p(Y_n \leq x) ~=~ \Phi(x).$$
+
+\end{izrek}
+\vspace{0.5cm}
 
 \pagebreak
 
