@@ -14,6 +14,9 @@
 \newcommand{\B}{\mathcal{B}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\C}{\mathcal{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\h}{\mathcal{H}}
+\newcommand{\A}{\mathcal{A}}
 
 \theoremstyle{definition}
 \newtheorem{definicija}{Definicija}[section]
@@ -30,6 +33,7 @@
 \newtheorem{lema}{Lema}
 \newtheorem*{dokaz}{Dokaz}
 \newtheorem*{posplošitev}{Posplošitev}
+\newtheorem{metoda}{Metoda}
 
 \title{Verjetnost in statistika - definicije, trditve in izreki}
 \author{Oskar Vavtar \\
@@ -490,7 +494,7 @@ Naj bo $\B \subseteq \R$ Borelova množica. Pogojna verjetnost, da $Y$ zavzame v
 
 \begin{trditev}
 
-Naj ima $(X, Y)$ \textit{"zvezno"} gostoto $f_{(X, Y)}$ in naj bo $f_X(x)$ \textit{zvezna} v $x$. Tedaj je
+Naj ima $(X, Y)$ \textit{``zvezno''} gostoto $f_{(X, Y)}$ in naj bo $f_X(x)$ \textit{zvezna} v $x$. Tedaj je
 $$\p(Y \in \B \mid X=x) ~=~ \int_\B \frac{f_{(X, Y)}(x, y)}{f_X(x)}\,dy.$$
 
 \end{trditev}
@@ -516,7 +520,7 @@ $$\p(Y \in \B) ~=~ \int_{-\infty}^\infty \p(Y \in \B \mid X=x)f_X(x)\,dx.$$
 
 \begin{definicija}
 
-\textit{Pogojna pričakovana vrednost} $Y$, pogojna na $X=x$, je pričakovana vrednost pogojne porazdelitve $(Y \mid X=x)$. V primeru, ko ima $(X, Y)$ \textit{"zvezno"} gostoto, to pomeni
+\textit{Pogojna pričakovana vrednost} $Y$, pogojna na $X=x$, je pričakovana vrednost pogojne porazdelitve $(Y \mid X=x)$. V primeru, ko ima $(X, Y)$ \textit{``zvezno''} gostoto, to pomeni
 $$\E(Y \mid X=x) ~=~ \int_{-\infty}^\infty y \cdot f_{(Y \mid X)}(y \mid x)\,dy.$$
 
 \end{definicija}
@@ -810,4 +814,208 @@ $$\lim_{n \rightarrow \infty} \p(Y_n \leq x) ~=~ \Phi(x).$$
 
 % #################################################################################################
 
+<<<<<<< Updated upstream
 \end{document}
+=======
+\section{TOČKOVNO OCENJEVANJE}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Naj bo $c$ realnoštevilska ``karakteristika'' proučevane \hbox{porazdelitve}\footnote{npr. $c = \E(X)$, $c = \text{Var}(X)$, $c = \p(X \geq 2)$, \ldots}. Cenilka za $c$ je funkcija slučajnega vzorca $T = T(X_1, \ldots, X_n)$, s katero ocenjujemo $c$. Cenilka je določena s funkcijo $T: \R^n \rightarrow \R$; za \hbox{$T(X_1, \ldots, X_n) = \overline{X}$} je
+$$T(x_1, \ldots, x_n) ~=~ \frac{1}{n}(x_1 + \ldots + x_n).$$
+Cenilka $T$ karakteristike $c$ je \textit{nepristranska}, če velja
+$$\E(T(X_1, \ldots, X_n)) ~=~ c(X)$$
+za vsako dopustno porazdelitev. Natančneje: za vsako dopustno \hbox{porazdelitev} (k.p.f.) $F \in \F$ in vsak vzorec $X_1, \ldots, X_n \overset{NEP}{\sim} F$ velja
+$$\E(T(X_1, \ldots, X_n)) ~=~ c(F).$$
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Naj bosta $U$ in $V$ \textit{nepristranski} cenilki za $c(X)$ v modelu $\F$. Tedaj ima $U$ enakomerno manjšo varianco od $V$, če velja
+$$\text{Var}(U(X_1, \ldots, X_n)) ~\leq~ \text{Var}(V(X_1, \ldots, X_n))$$
+$\forall F \in \F$ in vsak vzorec $X_1, \ldots, X_n \overset{NEP}{\sim} F$.
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Zaporedje cenilk $T_n$ za karakteristike $c$, je \textit{dosledno} (\textit{angl. consistent}), če $\forall F \in \F$ in vsako neskončno zaporedje $X_1, X_2, \ldots \overset{NEP}{\sim} F$ zaporedje $T_n(X_1, \ldots, X_n)$ konvergira h konstanti $c(F)$ verjetnostno. 
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{komentar}
+
+Če $X_1, X_2, \ldots$ generiramo kot \textit{neodvisne} replikacije slučajne spremenljivke $X:\Omega \rightarrow \R$, lahko $X_i$ razumemo kot funkcijo na prostoru neskončnih vzorcev
+$$S ~=~ \Omega^\N ~=~ \{\text{neskončna zaporedje iz $\Omega$}\}.$$
+
+\end{komentar}
+\vspace{0.5cm}
+
+% *************************************************************************************************
+
+\subsection{Metode za konstrukcijo cenilk}
+\vspace{0.5cm}
+
+\begin{metoda}[Metoda momentov]
+
+Zanima nas karakteristika $c(X)$ proučevane slučajne spremenljivke $X: \Omega \rightarrow \R$ v nekem modelu. Če je $c(X)$ mogoče izraziti z momenti kot $c(X) = g(m_1, m_2, \ldots, m_2)$, potem $c(X)$ ocenjujemo s cenilko $\hat{c} = g(\hat{m}_1, \hat{m}_2, \ldots, \hat{m}_r)$. Če je $g$ \textit{zvezna}, je cenilka $\hat{c}$ \textit{dosledna}. V praksi imamo najpogosteje parametrični model z vektorskim parametrom $\vartheta = (\vartheta_1, \ldots, \vartheta_r)$, kjer izrazimo 
+\begin{align*}
+m_1 ~&=~ m_1(\vartheta_1, \ldots, \vartheta_r) \\
+&\vdots \\
+m_r ~&=~ m_r(\vartheta_1, \ldots, \vartheta_r) 
+\end{align*}
+Privzemimo, da znamo zgornji sistem razrešiti na $\vartheta$ z vektorsko funkcijo $(\vartheta_1, \ldots, \vartheta_r) = (g_1(m_1, \ldots, m_r), \ldots, g_r(m_1, \ldots, m_r))$. Potem za $\vartheta$ vzamemo cenilko
+$$\hat{\vartheta} ~=~ (g_1(\hat{m}_1, \ldots, \hat{m}_r), \ldots, g_r(\hat{m}_1, \ldots, \hat{m}_r)).$$
+Že vemo: če je $g = (g_1, \ldots, g_r)$ \textit{zvezna}, je $\hat{\vartheta}$ \textit{dosledna}.
+
+\end{metoda}
+\vspace{0.5cm}
+
+\begin{metoda}[Metoda največjega verjetja]
+
+Privzemimo parametrični model s prostorom parametrov $\Theta \subset \R^r$ in splošnim parametrom \hbox{$\vartheta = (\vartheta_1, \ldots, \vartheta_r) \in \Theta$}. Dalje privzemimo, da imajo dopustne porazdelitve verjetnostne funkcije (v diskretnem modelu) oz. gostote (v zveznem modelu) oblike
+$$f(x;~\vartheta) ~=~ f(x;~\vartheta_1, \ldots, \vartheta_r).$$
+
+\end{metoda}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+\textit{Funkcija verjetja} za vzorec velikosti $n$ je \hbox{$L: \R^n \times \Theta \rightarrow [0, \infty)$},
+$$L(x_1, \ldots, x_n;~\vartheta) ~=~ f(x_1;~\vartheta) \cdot \ldots \cdot f(x_n;~\vartheta).$$
+Kot funkcija vzorca $\vec{x} = (x_1, \ldots, x_n)$ je $L$ gostota vektorja $(x_1, \ldots, x_n)$. V teoriji verjetja $L$ pri danem $\vec{x}$ gledamo kot funkcijo parametra $\vartheta$. Oceno za $\vartheta$ pri danem $\vec{x}$ po metodi najmanjših kvadratov je tak $\hat{\vartheta} \in \Theta$, pri katerem ima $L(\vec{x};~\vartheta)$ maksimum, torej velja:
+$$L(\vec{x};~\hat{\vartheta}) ~=~ \max_{\vartheta \in \Theta}{L(\vec{x};~\vartheta)}.$$
+Oceno $\hat{\vartheta}$ analitično tipično izračunamo z odvajanjem. Zaradi preprostosti raje odvajamo logaritemsko funkcijo verjetja:
+$$\ln(L(\vec{x};~\vartheta)) ~=~ \sum_{i=1}^n \ln{f(x_i;~\vartheta)}.$$
+Stacionarne točke funkcije $\ln L$ imenujemo rešitve \textit{enačb verjetja} (EV)
+$$\frac{\partial}{\partial \vartheta_j} (\ln L) ~=~ 0, ~~~1 \leq j \leq n.$$
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{definicija}[Cenilka največjega verjetja]
+
+Če za vse možne (v diskretnem primeru) ali skoraj vse (v zveznem primeru) realizacije $\vec{x}$ slučajnega vektorja $\vec{X}$ obstaja ocena $\hat{\vartheta}(\vec{x})$ za $\vartheta$ po metodi največjega verjetja, to je
+$$\max_{\vartheta \in \overline{\Theta}}{L(\vec{x};~\vartheta} ~=~ L(\vec{x};~\hat{\vartheta}(\vec{x})),$$
+potem funkciji $\hat{\vartheta}: \R^n \rightarrow \overline{\Theta}$ pravimo \textit{cenilka največjega verjetja} (CNV) za $\vartheta$.
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{opomba}
+
+Imamo parametrični model s parametričnim prostorom $\Theta$.
+\begin{itemize}
+	
+	\item Množica ``možnih'' vrednosti se ne spreminja s $\vartheta$.
+	
+	\item Za ``skoraj vse vrednosti'' se ne spreminja s $\vartheta$: če je $D_{\hat{\vartheta}}$ definicijsko območje, mora veljati
+	$$\p((X_1, \ldots, X_n) \in D_{\hat{\vartheta})} ~=~ 1$$
+	za vsako dopustno porazdelitev, $\forall \vartheta$ in $\forall X_i \overset{NEP}{\sim} \vartheta$.	
+	
+\end{itemize}
+
+\end{opomba}
+\vspace{0.5cm}
+
+\begin{izrek}
+
+Naj bodo gostote (verjetnostne funkcije) $f(\vec{x};~\vartheta)$ \textit{dvakrat zvezno parcialno odvedljive} na $\vartheta_j$, naj bo $\{ \vec{x} \mid f(\vec{x};~\vartheta) > 0 \}$ \textit{neodvisna} od $\vartheta$ in naj veljajo še dodatni blagi regularnostni privzetki. ČE imajo (EV) enolične rešitve za vse dovoolj velike vzorce, ki jih označimo $\hat{\vartheta} = \hat{\vartheta}(x_1, \ldots, x_n)$, potem je $\hat{\vartheta}(x_1, \ldots, x_n)$ dosledno zaporedje cenilk za $\vartheta$.
+
+\end{izrek}
+\vspace{0.5cm}
+
+% *************************************************************************************************
+
+\pagebreak
+
+% #################################################################################################
+
+\section{INTERVALSKO OCENJEVANJE}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Naj bo $c = c(X) = c(F_X)$ proučevana karakteristika slučajne spremenljivke $X$. Naj bo $\alpha \in (0, 1)$ vnaprej podano (``majhno'')  in naj bo $n$ velikost vzorca. Interval zaupanja za $c$ stopnje zaupanja $1 - \alpha$ je prireditev $\vec{X} = (X_1, \ldots, X_n) \mapsto [L(X_1, \ldots, X_n), U(X_1, \ldots, X_n)]$ za katero velja:
+$$\p([L(X_1, \ldots, X_n), U(X_1, \ldots, X_n)] \ni c(F)) ~\geq~ 1 - \alpha$$
+za vsako dopustno porazdelitev $F$ in $\forall X_1, \ldots, X_n \overset{NEP}{\sim} F$.
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{komentar}
+
+Interval zaupanja je določen s funkcijama $L, U: \R^n \rightarrow \R$.
+
+\end{komentar}
+\vspace{0.5cm}
+
+\begin{izrek}[Student, Fisher]
+
+Naj bodo $X_1, \ldots, X_n \overset{NEP}{\sim} \n(\mu, \sigma^2)$. Tedaj sta 
+$$\overline{X} ~=~ \frac{1}{n}(X_1 + \ldots + X_n) ~~~\text{in}~~~ S^2 ~=~ \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2$$
+neodvisni slučajni spremenljivki. Velja
+$$\frac{n-1}{\sigma^2} \cdot S^2 ~=~ \sum_{i=1}^n \left( \frac{X_i - \overline{X}}{\sigma} \right)^2  ~\sim~ \chi_{n-1}^2 ~=~ \Gamma\left( \frac{n-1}{2}, \frac{1}{2} \right).$$
+
+\end{izrek}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Naj bosta $Z$ in $K$ \textit{neodvisni} slučajni spremenljivki in \hbox{$Z \sim \n(0, 1)$} ter $K \sim \chi_k^2$. Tedaj pravimo, da ima slučajna spremenljivka $\frac{Z}{\sqrt{\frac{K}{k}}}$ Studentovo porazdelitev s $k$ prostorskimi stopnjami. Označimo jo s $t_k$.
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{komentar}
+
+Porazdelitev $t_k$ je zaradi \textit{neodvisnosti} funkcija porazdelitve slučajne spremenljivke $Z$ in slučajne spremenljivke $K$. Takoj sledi, da je $t_k$ \textit{simetrična} okrog $0$. Očitno sta $\frac{Z}{\sqrt{\frac{K}{k}}}$ in $\frac{-Z}{\sqrt{\frac{K}{k}}}$ enako porazdeljeni.
+
+\end{komentar}
+\vspace{0.5cm}
+
+\begin{posledica}
+
+Slučajna spremenljivka
+$$t ~=~ \frac{\overline{X} - \mu}{\frac{S}{\sqrt{n}}} ~\sim~ t_{n-1}$$
+(tu je $S = \sqrt{S^2}$).
+
+\end{posledica}
+\vspace{0.5cm}
+
+\pagebreak
+
+% #################################################################################################
+
+\section{PREIZKUŠANJE DOMNEV}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Statistična domneva (hipoteza) je izjava, da porazdelitev slučajne spremenljivke $X$ pripada neki podmnožici $\h \subseteq \F$.
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{definicija}
+
+Preizkus domneve $\h$ proti alternativi $\A$ za vzorec velikosti $n$ je odločitveno pravilo, ki na podlagi realizacije $n$ \textit{neodvisnih} replikacij proučevane slučajne spremenljivke odloči, ali $\h$ zavrnemo (in s tem sprejmemo $\A$) ali je ne zavrnemo (oz. jo ``sprejmemo'').
+
+\end{definicija}
+\vspace{0.5cm}
+
+\begin{komentar}
+
+Verjetnost napake 1. vrste je funkcija, definirana na domnevi $\h$. Če je $\h$ sestavljena iz ene porazdelitve (``enostavna''), je to v resnici eno število.
+
+\end{komentar}
+\vspace{0.5cm}
+
+% #################################################################################################
+
+\end{document}
+>>>>>>> Stashed changes
