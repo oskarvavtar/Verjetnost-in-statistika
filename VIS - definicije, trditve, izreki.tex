@@ -77,7 +77,7 @@ $$F_{\vec{X}}(x_1, \ldots, x_n) ~=~ \mathbb{P}(X_1 \leq x_1, \ldots, X_n \leq x_
 		\end{align*}
 	
 	\item[(2)] \textsc{Monotonost}: \\Če je $x_i \leq y_i$ za $\forall i \in \{ 1,\ldots, n \}$, je
-	$$F_{\vec{X}}(x_1, \ldots, x_n) ~=~ F_{\vec{X}}(\vec{x}) ~\leq~ F_{\vec{X}}(y).$$
+	$$F_{\vec{X}}(x_1, \ldots, x_n) ~=~ F_{\vec{X}}(\vec{x}) ~\leq~ F_{\vec{X}}(\vec{y}).$$
 	To sledi iz monotonosti $\mathbb{P}$.
 	
 	\item[(3)] \textsc{Zveznost z desne}:
@@ -237,9 +237,9 @@ $$f_{(U, V)}(u, v) ~=~ f_{(X, Y)}(x(u, v), y(u, v)) \cdot \left| \begin{vmatrix}
 Upoštevaje $g \circ g^{-1} = \text{id}$ in posledično
 $$Jg(g^{-1}(u, v)) \cdot Jg^{-1}(u, v) ~=~ I$$
 zgornje prepišemo v
-$$f_{(U, V)}(u, v) ~=~ \frac{f_{(X, Y))}(g^{-1}(u, v)}{|\det{Jg(g^{-1}(u, v))}|} ~=~ \frac{f_{(X, Y)}(x(u, v), y(u, v))}{\left| \begin{vmatrix}
-\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
-\frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}
+$$f_{(U, V)}(u, v) ~=~ \frac{f_{(X, Y))}(g^{-1}(u, v))}{|\det{Jg(g^{-1}(u, v))}|} ~=~ \frac{f_{(X, Y)}(x(u, v), y(u, v))}{\left| \begin{vmatrix}
+\frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \\
+\frac{\partial v}{\partial x} & \frac{\partial v}{\partial y}
 \end{vmatrix} \Big|_{(x(u, v),~y(u, v))} \right|}.$$ 
 
 \end{trditev}
@@ -248,7 +248,7 @@ $$f_{(U, V)}(u, v) ~=~ \frac{f_{(X, Y))}(g^{-1}(u, v)}{|\det{Jg(g^{-1}(u, v))}|}
 \begin{trditev}
 
 Naj za $\vec{X}: \Omega \rightarrow \R^n$ velja $\vec{X} \sim N(\vec{\mu}, \Sigma)$ in naj bo $A: \R^n \rightarrow \R^n$ \textit{obrnljiva} matrika. Dalje naj bo $\vec{\nu} \in \R^n$. Tedaj
-$$A \vec{x} + \vec{\nu} \sim N(A \vec{\mu} + \vec{\nu}, A \Sigma A^T).$$
+$$A \vec{X} + \vec{\nu} \sim \n(A \vec{\mu} + \vec{\nu}, A \Sigma A^T).$$
 
 \end{trditev}
 \vspace{0.5cm}
@@ -440,7 +440,7 @@ $$Cov(X, Y) ~=~ 0.$$
 
 \begin{definicija}
 
-\textit{Variančno-kovariančna matrika} slučajnega vektorja $\vec{X} = (X_1, \ldots, X_n)$ je matrika $Var(\vec{X}) \in \R^{n \times m}$ z elementi
+\textit{Variančno-kovariančna matrika} slučajnega vektorja $\vec{X} = (X_1, \ldots, X_n)$ je matrika $Var(\vec{X}) \in \R^{n \times n}$ z elementi
 $$[Var(\vec{X})]_{ij} ~=~ Cov(X_i, X_j).$$
 To je \textit{simetrična} matrika z diagonalnimi elementi $Var(X_1), \ldots, Var(X_n)$.
 
@@ -580,7 +580,7 @@ $$m_k(a) ~=~ \int_{-\infty}^\infty (x-a)^k f(x)\,dx,$$
 
 Pravimo:
 \begin{itemize}
-	\item $m_k(0)$ \ldots $k$-ti moment
+	\item $m_k(0)$ \ldots $k$-ti \textit{začetni} moment
 	\item $m_k(\E(k))$ \ldots $k$-ti \textit{centralni} moment
 \end{itemize}
 
