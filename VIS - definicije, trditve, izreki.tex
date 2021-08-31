@@ -938,7 +938,7 @@ Naj bodo gostote (verjetnostne funkcije) $f(\vec{x};~\vartheta)$ \textit{dvakrat
 \begin{definicija}
 
 Naj bo $c = c(X) = c(F_X)$ proučevana karakteristika slučajne spremenljivke $X$. Naj bo $\alpha \in (0, 1)$ vnaprej podano (``majhno'')  in naj bo $n$ velikost vzorca. Interval zaupanja za $c$ stopnje zaupanja $1 - \alpha$ je prireditev $\vec{X} = (X_1, \ldots, X_n) \mapsto [L(X_1, \ldots, X_n), U(X_1, \ldots, X_n)]$ za katero velja:
-$$\p([L(X_1, \ldots, X_n), U(X_1, \ldots, X_n)]) \ni c(F)) ~\geq~ 1 - \alpha$$
+$$\p([L(X_1, \ldots, X_n), U(X_1, \ldots, X_n)] \ni c(F)) ~\geq~ 1 - \alpha$$
 za vsako dopustno porazdelitev $F$ in $\forall X_1, \ldots, X_n \overset{NEP}{\sim} F$.
 
 \end{definicija}
@@ -949,6 +949,51 @@ za vsako dopustno porazdelitev $F$ in $\forall X_1, \ldots, X_n \overset{NEP}{\s
 Interval zaupanja je določen s funkcijama $L, U: \R^n \rightarrow \R$.
 
 \end{komentar}
+\vspace{0.5cm}
+
+\begin{metoda}[Intervali zaupanja v normalnih modelih]
+~\\
+\begin{enumerate}
+
+\item[\textbf{i)}] \textbf{Interval zaupanja za $\mu$ pri \textit{poznani} disperziji $\sigma^2$} 
+$$X_1, \ldots, X_n \overset{NEP}{\sim} \n(\mu, \sigma^2) ~~~\Longrightarrow~~~ \frac{\overline{X} - \mu}{\frac{\sigma}{\sqrt{n}}} \sim \n(0, 1)$$
+Privzemimo, da za $a<b$ ($a,b \in \R$) velja
+$$\p(\n(0,1) \in [a, b]) ~=~ \Phi(b) - \Phi(a) ~=~ 1-\alpha.$$
+Tedaj 
+$$\p\left(a \leq \frac{\overline{X} - \mu}{\frac{\sigma}{\sqrt{n}}} \leq b\right) ~=~ 1 - \alpha ~~~\iff~~~ \p\left(\overline{X} - a\frac{\sigma}{\sqrt{n}} \geq \mu \geq \overline{X} - b\frac{\sigma}{\sqrt{n}}\right) ~=~ 1 - \alpha.$$
+To pomeni, da je $[\overline{X} - b\frac{\sigma}{\sqrt{n}}, \overline{X} - a\frac{\sigma}{\sqrt{n}}]$ interval zaupanja za $\mu$ stopnje zaupanja $1 - \alpha$. Širina intervala znaša $(b-a)\frac{\sigma}{\sqrt{n}}$. Zaradi simetričnosti gostote $f_{\n(0, 1)}$, je minimum dosežen pri $a = -b$.
+$$\Longrightarrow ~\Phi(b) ~=~ \Phi(b_{\text{sim}}) ~=~ 1 - \frac{\alpha}{2} ~~~\text{in}~~~ b ~=~ \Phi^{-1}\left(1-\frac{\alpha}{2}\right) ~=:~ z_{\frac{\alpha}{2}}$$
+Standardni interval zaupanja je torej 
+$$\left[\overline{X} - z_{\frac{\alpha}{2}} \frac{\sigma}{\sqrt{n}}, \overline{X} + z_{\frac{\alpha}{2}} \frac{\sigma}{\sqrt{n}}\right].$$
+
+\item[\textbf{ii)}] \textbf{Interval zaupanja za $\mu$ z \textit{neznano} disperzijo $\sigma^2$} \\
+\noindent Neznani $\sigma^2$ ocenimo s
+$$S^2 ~=~ \frac{1}{n-1}\sum_{i=1}^n (X_i - \overline{X})^2.$$
+Uporabimo Studentovo porazdelitev z $n-1$ prostorskimi stopnjami:
+$$t_{n-1} ~=~ \frac{\overline{X} - \mu}{\frac{S}{\sqrt{n}}}.$$
+Interval zaupanja za $\mu$ stopnje zaupanja $1-\alpha$
+$$\left[\overline{X} - b\frac{S}{\sqrt{n}}, \overline{X} - a\frac{S}{\sqrt{n}}\right]$$
+dobimo, če za $a<b$ velja
+$$\p(t_{n-1} \in [a, b]) ~=~ F_{t_{n-1}}(b) - F_{t_{n-1}}(a) ~=~ 1-\alpha.$$
+Ker je tudi $t_{n-1}$ simetrična porazdelitev, minimum dosežemo 
+pri 
+$$-a ~=~ b ~=~ F_{t_{n-1}}^{-1}(1-\frac{\alpha}{2}) ~=~ t_{n-1; \frac{\alpha}{2}}.$$
+Standardni interval zaupanja:
+$$\left[\overline{X} - t_{n-1; \frac{\alpha}{2}}\frac{S}{\sqrt{n}}, \overline{X} + t_{n-1; \frac{\alpha}{2}}\frac{S}{\sqrt{n}}\right].$$
+
+\item[\textbf{iii)}] \textbf{Interval zaupanja za $\sigma^2$ z \textit{znano} pričakovano vrednostjo $\mu$} \\
+\noindent Za $X_i \overset{NEP}{\sim} \n(\mu, \sigma^2)$ je 
+$$\sum_{i=1}^n \left(\frac{X_i - \mu}{\sigma}\right)^2 ~\sim~ \chi_n^2.$$
+Če velja $\p(\chi_n^2 \in [a, b]) = 1-\alpha$, je
+$$\p\left(a \leq \frac{1}{\sigma^2}\sum_{i=1}^n(X_i - \mu)^2 \leq b\right) ~=~ 1 - \alpha$$
+oziroma
+$$\p\left(\left[\frac{1}{b}\sum_{i=1}^n(X_i - \mu)^2, \frac{1}{a}\sum_{i=1}^n(X_i - \mu)^2\right]\right) ~=~ 1 - \alpha.$$
+Širina dobljenega intervala je $\left(\frac{1}{a}-\frac{1}{b}\right)\sum_{i=1}^n(X_i - \mu)^2$, z minimizacijo dobimo $\frac{1}{a}-\frac{1}{b}$ pri vezi
+$$\p(\chi_n^2 \in [a, b]) ~=~ F_{\chi_n^2}(b) - F_{\chi_n^2}(a) ~=~ 1 - \alpha.$$
+
+\end{enumerate}
+
+\end{metoda}
 \vspace{0.5cm}
 
 \begin{izrek}[Student, Fisher]
@@ -982,6 +1027,25 @@ $$t ~=~ \frac{\overline{X} - \mu}{\frac{S}{\sqrt{n}}} ~\sim~ t_{n-1}$$
 (tu je $S = \sqrt{S^2}$).
 
 \end{posledica}
+\vspace{0.5cm}
+
+\begin{metoda}[Naprej: Intervali zaupanja v normalnih modelih]
+~\\
+\begin{enumerate}
+
+\item[\textbf{iv)}] \textbf{Interval zaupanja za $\sigma^2$ z \textit{neznano} pričakovano vrednostjo $\mu$} \\
+\noindent Za $X_i \overset{NEP}{\sim} \n(\mu, \sigma^2)$ je 
+$$\sum_{i=1}^n \left(\frac{X_i - \overline{X}}{\sigma}\right)^2 ~\sim~ \chi_{n-1}^2.$$
+Če velja $\p(\chi_{n-1}^2 \in [a, b]) = 1-\alpha$, je
+$$\p\left(a \leq \frac{1}{\sigma^2}\sum_{i=1}^n(X_i - \overline{X})^2 \leq b\right) ~=~ 1 - \alpha$$
+oziroma
+$$\p\left(\left[\frac{1}{b}\sum_{i=1}^n(X_i - \overline{X})^2, \frac{1}{a}\sum_{i=1}^n(X_i - \overline{X})^2\right]\right) ~=~ 1 - \alpha.$$
+Širina dobljenega intervala je $\left(\frac{1}{a}-\frac{1}{b}\right)\sum_{i=1}^n(X_i - \overline{X})^2$, z minimizacijo dobimo $\frac{1}{a}-\frac{1}{b}$ pri vezi
+$$\p(\chi_{n-1}^2 \in [a, b]) ~=~ F_{\chi_{n-1}^2}(b) - F_{\chi_{n-1}^2}(a) ~=~ 1 - \alpha.$$
+
+\end{enumerate}
+
+\end{metoda}
 \vspace{0.5cm}
 
 \pagebreak
